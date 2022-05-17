@@ -5,23 +5,24 @@ import '@openzeppelin/contracts/token/ERC721/ERC721.sol';
 import '@openzeppelin/contracts/access/Ownable.sol';
 
 contract NFTMint is ERC721, Ownable {
-    //storage variables
-    // price of mint
     uint256 public mintPrice;
-    // current number of nft that have been minted 
     uint256 public totalSupply;
-    // max number of nfts in collection 
     uint256 public maxSupply;
-    // max number of nfts one wallent can mint to distribute more 
     uint256 public maxPerWallet;
-    // determind when a user can mint 
     bool public isPublicMintEnabled;
-    // locate nft image url  
     string internal baseTokenUri;
-    // withdraw money 
     address payable public withdrawWallet;
-    // track mints of the wallet addresses 
     mapping(address => uint256) public walletMints;
 
-
+    constructor() payable ERC721('MintOnChain', 'MC') {
+        // slightly cheaper to initialize state var inside construvtor
+        mintPrice = 0.02 ether;
+        // 0 mints to begin with 
+        totalSupply = 0;
+        // max supply of nfts that will be created 
+        maxSupply = 1000;
+        // max nfts 1 wallet can mint
+        maxPerWallet = 3;
+        //will need to set var withdrawWallet
+    }
 }
